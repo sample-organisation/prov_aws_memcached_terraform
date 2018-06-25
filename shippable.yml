@@ -69,3 +69,38 @@ jobs:
       - memcached
       - aws
       - terraform
+
+# De-provision Amazon ElastiCache Memcached with Terraform
+  - name: deprov_aws_memcached_tf
+    type: runSh
+    steps:
+      - IN: aws_memcached_tf_repo
+        switch: off
+      - IN: aws_memcached_tf_state
+        switch: off
+      - IN: aws_memcached_tf_creds
+        switch: off
+      - TASK:
+          name: deprov_aws_elasticache_memcached
+          runtime:
+            options:
+              env:
+                - aws_region: "us-east-1"
+          script:
+            - pushd $(shipctl get_resource_state "aws_memcached_tf_repo")
+            - export AWS_ACCESS_KEY_ID=$(shipctl get_integration_resource_field aws_memcached_tf_creds "accessKey")
+            - export AWS_SECRET_ACCESS_KEY=$(shipctl get_integration_resource_field aws_memcached_tf_creds "secretKey")
+            - shipctl copy_file_from_resource_state aws_memcached_tf_state terraform.tfstate .
+            - shipctl replace terraform.tfvars
+            - terraform init
+            - terraform destroy -force -auto-approve -var-file=terraform.tfvars
+      - OUT: aws_memcached_tf_state
+    always:
+      script:
+        - shipctl copy_file_to_resource_state terraform.tfstate aws_memcached_tf_state
+        - popd
+    flags:
+      - aws_elasticache
+      - memcached
+      - aws
+      - terraform
