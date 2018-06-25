@@ -4,7 +4,7 @@ resources:
     type: gitRepo
     integration: "drship_github"
     versionTemplate:
-      sourceName: "devops-recipes/prov_aws_memcached_terraform"
+      sourceName: "sample-organisation/prov_aws_memcached_terraform" #TODO change to devops-recipes
       branch: master
 
 # AWS credentials
