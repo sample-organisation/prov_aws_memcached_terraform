@@ -80,6 +80,8 @@ jobs:
         switch: off
       - IN: aws_memcached_tf_creds
         switch: off
+      - IN: aws_memcached_tf_info
+        switch: off
       - TASK:
           name: deprov_aws_elasticache_memcached
           runtime:
