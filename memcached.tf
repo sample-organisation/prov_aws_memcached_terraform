@@ -5,7 +5,7 @@ provider "aws" {
 }
 
 resource "aws_elasticache_cluster" "memcachedCluster" {
-  cluster_id           = "demo-memcached-cluster"
+  cluster_id           = "demo-memcached"
   engine               = "memcached"
   node_type            = "cache.t2.micro"
   num_cache_nodes      = 2
