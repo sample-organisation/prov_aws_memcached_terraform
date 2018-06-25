@@ -56,7 +56,9 @@ jobs:
       - OUT: aws_memcached_tf_state
     on_success:
       script:
-        - shipctl put_resource_state_multi aws_memcached_tf_info "versionName=$(terraform output configuration_endpoint)" "configuration_endpoint=$(terraform output configuration_endpoint)" "port=$(terraform output port)" "engine_version=$(terraform output engine_version)" "num_cache_nodes=$(terraform output num_cache_nodes)" "cache_node_0_address=$(terraform output cache_node_0_address)" "cache_node_1_address=$(terraform output cache_node_1_address)"
+        - shipctl put_resource_state_multi aws_memcached_tf_info "versionName=$(terraform output configuration_endpoint)" "configuration_endpoint=$(terraform output configuration_endpoint)"
+        - shipctl put_resource_state_multi aws_memcached_tf_info "port=$(terraform output port)" "engine_version=$(terraform output engine_version)" "num_cache_nodes=$(terraform output num_cache_nodes)"
+        - shipctl put_resource_state_multi aws_memcached_tf_info "cache_node_0_address=$(terraform output cache_node_0_address)" "cache_node_1_address=$(terraform output cache_node_1_address)"
     always:
       script:
         - shipctl copy_file_to_resource_state terraform.tfstate aws_memcached_tf_state
