@@ -4,24 +4,6 @@ provider "aws" {
   region      = "${var.aws_region}"
 }
 
-resource "aws_vpc" "demo_vpc" {
-  cidr_block = "10.0.0.0/16"
-
-  tags {
-    Name = "demo_memcached_vpc"
-  }
-}
-
-resource "aws_subnet" "demo_memcached_subnet" {
-  vpc_id = "${aws_vpc.demo_vpc.id}"
-  cidr_block = "10.0.0.0/24"
-  availability_zone = "us-east-1a"
-
-  tags {
-    Name = "demo_memcached_subnet"
-  }
-}
-
 resource "aws_elasticache_subnet_group" "demo_memcached_subnet_group" {
   name       = "demo-memcached-subnet-group"
   subnet_ids = ["${aws_subnet.demo_memcached_subnet.id}"]

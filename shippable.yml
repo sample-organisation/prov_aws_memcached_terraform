@@ -36,6 +36,7 @@ jobs:
   - name: prov_aws_memcached_tf
     type: runSh
     steps:
+      - IN: aws_vpc_tf_info
       - IN: aws_memcached_tf_repo
         switch: off
       - IN: aws_memcached_tf_state

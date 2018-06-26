@@ -9,3 +9,7 @@ variable "aws_secret_access_key" {
 variable "aws_region" {
   description = "AWS region"
 }
+
+variable "vpc_memcached_sn_id" {
+  description = "Memcached subnet ID"
+}
