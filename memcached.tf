@@ -4,6 +4,29 @@ provider "aws" {
   region      = "${var.aws_region}"
 }
 
+resource "aws_vpc" "demo_vpc" {
+  cidr_block = "10.0.0.0/16"
+
+  tags {
+    Name = "demo-memcached-tf"
+  }
+}
+
+resource "aws_subnet" "demo_memcached_subnet" {
+  vpc_id = "${aws_vpc.demo_vpc.id}"
+  cidr_block = "10.0.0.0/24"
+  availability_zone = "us-east-1a"
+
+  tags {
+    Name = "demo-memcached-tf"
+  }
+}
+
+resource "aws_elasticache_subnet_group" "demo_memcached_subnet_group" {
+  name       = "demo-memcached-subnet-group"
+  subnet_ids = ["${aws_subnet.demo_memcached_subnet.id}"]
+}
+
 resource "aws_elasticache_cluster" "memcachedCluster" {
   cluster_id           = "demo-memcached"
   engine               = "memcached"
@@ -11,6 +34,7 @@ resource "aws_elasticache_cluster" "memcachedCluster" {
   num_cache_nodes      = 2
   parameter_group_name = "default.memcached1.4"
   port                 = 11211
+  subnet_group_name    = "demo-memcached-subnet-group"
 }
 
 output "configuration_endpoint" {
