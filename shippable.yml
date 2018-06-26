@@ -59,6 +59,7 @@ jobs:
         - shipctl put_resource_state_multi aws_memcached_tf_info "versionName=$(terraform output configuration_endpoint)" "configuration_endpoint=$(terraform output configuration_endpoint)"
         - shipctl put_resource_state_multi aws_memcached_tf_info "port=$(terraform output port)" "engine_version=$(terraform output engine_version)" "num_cache_nodes=$(terraform output num_cache_nodes)"
         - shipctl put_resource_state_multi aws_memcached_tf_info "cache_node_0_address=$(terraform output cache_node_0_address)" "cache_node_1_address=$(terraform output cache_node_1_address)"
+        - shipctl put_resource_state_multi aws_memcached_tf_info "vpc_id=$(terraform output vpc_id)" "subnet_id=$(terraform output subnet_id)" "subnet_group_name=$(terraform output subnet_group_name)"
     always:
       script:
         - shipctl copy_file_to_resource_state terraform.tfstate aws_memcached_tf_state
