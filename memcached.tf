@@ -8,7 +8,7 @@ resource "aws_vpc" "demo_vpc" {
   cidr_block = "10.0.0.0/16"
 
   tags {
-    Name = "demo-memcached-tf"
+    Name = "demo_memcached_vpc"
   }
 }
 
@@ -18,7 +18,7 @@ resource "aws_subnet" "demo_memcached_subnet" {
   availability_zone = "us-east-1a"
 
   tags {
-    Name = "demo-memcached-tf"
+    Name = "demo_memcached_subnet"
   }
 }
 
