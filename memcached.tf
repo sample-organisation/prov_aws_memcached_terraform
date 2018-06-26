@@ -6,7 +6,7 @@ provider "aws" {
 
 resource "aws_elasticache_subnet_group" "demo_memcached_subnet_group" {
   name       = "demo-memcached-subnet-group"
-  subnet_ids = ["${aws_subnet.demo_memcached_subnet.id}"]
+  subnet_ids = ["${var.vpc_memcached_sn_id}"]
 }
 
 resource "aws_elasticache_cluster" "memcachedCluster" {
@@ -19,12 +19,8 @@ resource "aws_elasticache_cluster" "memcachedCluster" {
   subnet_group_name    = "${aws_elasticache_subnet_group.demo_memcached_subnet_group.name}"
 }
 
-output "vpc_id" {
-  value = "${aws_vpc.demo_vpc.id}"
-}
-
 output "subnet_id" {
-  value = "${aws_subnet.demo_memcached_subnet.id}"
+  value = "${var.vpc_memcached_sn_id}"
 }
 
 output "subnet_group_name" {
