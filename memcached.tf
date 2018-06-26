@@ -34,7 +34,7 @@ resource "aws_elasticache_cluster" "memcachedCluster" {
   num_cache_nodes      = 2
   parameter_group_name = "default.memcached1.4"
   port                 = 11211
-  subnet_group_name    = "demo-memcached-subnet-group"
+  subnet_group_name    = "${aws_elasticache_subnet_group.demo_memcached_subnet_group.name}"
 }
 
 output "configuration_endpoint" {
