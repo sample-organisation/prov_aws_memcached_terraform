@@ -10,6 +10,6 @@ variable "aws_region" {
   description = "AWS region"
 }
 
-variable "vpc_memcached_sn_id" {
-  description = "Memcached subnet ID"
+variable "vpc_private_sn_id" {
+  description = "Private subnet ID for spinning up Memcached instances"
 }
